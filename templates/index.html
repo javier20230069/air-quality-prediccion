@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediccion de CO(GT)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <p class="eyebrow">Air Quality Dataset</p>
+            <h1>Prediccion de monoxido de carbono</h1>
+            <p class="intro">Captura las mediciones de los sensores para estimar la concentracion de CO(GT) en el aire.</p>
+        </section>
+        <section class="panel">
+            <form method="post" class="form-grid">
+                {% for item in feature_info.feature_metadata %}
+                <label class="field">
+                    <span>{{ item.label }}</span>
+                    <input type="number" step="0.0001" name="{{ item.name }}" value="{{ values[item.name] }}" min="{{ item.min }}" max="{{ item.max }}" required>
+                    <small>{{ item.help }}</small>
+                </label>
+                {% endfor %}
+                <button type="submit">Calcular prediccion</button>
+            </form>
+            {% if prediction is not none %}
+            <div class="result">
+                <span>Prediccion estimada</span>
+                <strong>{{ '%.3f'|format(prediction) }}</strong>
+                <p>CO(GT)</p>
+            </div>
+            {% endif %}
+            {% if error %}<div class="error">{{ error }}</div>{% endif %}
+        </section>
+    </main>
+</body>
+</html>
