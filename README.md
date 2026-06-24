@@ -2,6 +2,9 @@
 
 Aplicacion Flask para predecir CO(GT) usando el Air Quality Dataset de UCI.
 
+El pipeline desplegado usa imputacion, codificacion de la variable categorica,
+escalado, PCA al 95% de varianza y MLPRegressor.
+
 URL oficial: https://archive.ics.uci.edu/ml/datasets/air+quality
 
 URL directa: https://archive.ics.uci.edu/ml/machine-learning-databases/00360/AirQualityUCI.zip

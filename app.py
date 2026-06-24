@@ -17,7 +17,13 @@ model = joblib.load(MODEL_PATH)
 def index():
     prediction = None
     error = None
-    values = {item["name"]: round(item["mean"], 4) for item in feature_info["feature_metadata"]}
+    values = {}
+    for item in feature_info["feature_metadata"]:
+        if item["input_type"] == "select":
+            values[item["name"]] = item["default"]
+        else:
+            values[item["name"]] = round(item["mean"], 4)
+
     if request.method == "POST":
         try:
             input_data = {}
@@ -26,8 +32,14 @@ def index():
                 value = request.form.get(name, "").strip()
                 if value == "":
                     raise ValueError(f"Falta capturar el campo {item['label']}")
-                input_data[name] = float(value)
+                if item["input_type"] == "select":
+                    if value not in item["options"]:
+                        raise ValueError(f"El valor de {item['label']} no es valido")
+                    input_data[name] = value
+                else:
+                    input_data[name] = float(value)
                 values[name] = value
+
             input_df = pd.DataFrame([input_data])
             prediction = float(model.predict(input_df)[0])
         except Exception as exc:

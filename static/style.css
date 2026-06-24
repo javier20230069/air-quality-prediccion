@@ -10,7 +10,7 @@ h1 { margin: 0; font-size: clamp(30px, 5vw, 50px); line-height: 1.05; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .field { display: grid; gap: 7px; }
 .field span { font-weight: 700; }
-.field input { width: 100%; border: 1px solid #b8c8d8; border-radius: 6px; padding: 12px; font-size: 16px; }
+.field input, .field select { width: 100%; border: 1px solid #b8c8d8; border-radius: 6px; padding: 12px; font-size: 16px; background: #fff; }
 .field small { color: #5c6f82; line-height: 1.4; }
 button { grid-column: 1 / -1; border: none; border-radius: 6px; padding: 14px 18px; background: #0f766e; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; }
 button:hover { background: #115e59; }

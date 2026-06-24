@@ -11,14 +11,22 @@
         <section class="hero">
             <p class="eyebrow">Air Quality Dataset</p>
             <h1>Prediccion de monoxido de carbono</h1>
-            <p class="intro">Captura las mediciones de los sensores para estimar la concentracion de CO(GT) en el aire.</p>
+            <p class="intro">Captura las mediciones ambientales para estimar la concentracion de CO(GT) en el aire.</p>
         </section>
         <section class="panel">
             <form method="post" class="form-grid">
                 {% for item in feature_info.feature_metadata %}
                 <label class="field">
                     <span>{{ item.label }}</span>
+                    {% if item.input_type == "select" %}
+                    <select name="{{ item.name }}" required>
+                        {% for option in item.options %}
+                        <option value="{{ option }}" {% if values[item.name] == option %}selected{% endif %}>{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
                     <input type="number" step="0.0001" name="{{ item.name }}" value="{{ values[item.name] }}" min="{{ item.min }}" max="{{ item.max }}" required>
+                    {% endif %}
                     <small>{{ item.help }}</small>
                 </label>
                 {% endfor %}
